@@ -6,19 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://coding.red">
-  <title>红色代码</title>
+  <title>新起点 | 红色代码</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="90后码农，有梦想，在远方！">
-<meta name="keywords" content="U3D,游戏,手游,C#,Java,Lua">
-<meta property="og:type" content="website">
-<meta property="og:title" content="红色代码">
-<meta property="og:url" content="http://coding.red/index.html">
+  <meta name="description" content="每年都会因为这样或那样的原因导致网站重新建，主要是平时太忙（太懒）… 关于服务器这次把两个服务器重新搞了一下，一个用于GIT服务器和做下载站用，另一个目前是闲置状态，可能到期就不会续费了，至于之前的壁纸站…以后可能就没有以后了。 关于域名域名应该就保留两个吧，一个用于GIT，一个用于现在的博客，至于其它的真的无心搞了… 关于网站分类这次决定生活博客和技术博客并为一类了，原因嘛…还是因为平时太忙，无">
+<meta name="keywords" content="生活">
+<meta property="og:type" content="article">
+<meta property="og:title" content="新起点">
+<meta property="og:url" content="http://coding.red/2019/05/01/新起点/index.html">
 <meta property="og:site_name" content="红色代码">
-<meta property="og:description" content="90后码农，有梦想，在远方！">
+<meta property="og:description" content="每年都会因为这样或那样的原因导致网站重新建，主要是平时太忙（太懒）… 关于服务器这次把两个服务器重新搞了一下，一个用于GIT服务器和做下载站用，另一个目前是闲置状态，可能到期就不会续费了，至于之前的壁纸站…以后可能就没有以后了。 关于域名域名应该就保留两个吧，一个用于GIT，一个用于现在的博客，至于其它的真的无心搞了… 关于网站分类这次决定生活博客和技术博客并为一类了，原因嘛…还是因为平时太忙，无">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-08-10T06:08:10.562Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="红色代码">
-<meta name="twitter:description" content="90后码农，有梦想，在远方！">
+<meta name="twitter:title" content="新起点">
+<meta name="twitter:description" content="每年都会因为这样或那样的原因导致网站重新建，主要是平时太忙（太懒）… 关于服务器这次把两个服务器重新搞了一下，一个用于GIT服务器和做下载站用，另一个目前是闲置状态，可能到期就不会续费了，至于之前的壁纸站…以后可能就没有以后了。 关于域名域名应该就保留两个吧，一个用于GIT，一个用于现在的博客，至于其它的真的无心搞了… 关于网站分类这次决定生活博客和技术博客并为一类了，原因嘛…还是因为平时太忙，无">
   
     <link rel="alternative" href="/atom.xml" title="红色代码" type="application/atom+xml">
   
@@ -150,100 +151,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-Unity编译Android超过65536的解决方法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-新起点" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/10/Unity编译Android超过65536的解决方法/">Unity编译Android超过65536的解决方法</a>
-    </h1>
-  
-
-        
-        <a href="/2019/08/10/Unity编译Android超过65536的解决方法/" class="archive-article-date">
-  	<time datetime="2019-08-10T06:23:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Android开发中有对APK的方法数量做限制，不能超过65536.如果超过了该数目，会遇到如下异常：<br><code>Conversion to Dalvikformat failed:Unable toexecute dex: method ID not in [0, 0xffff]: 65536</code></p>
-<h4 id="解决方案如下："><a href="#解决方案如下：" class="headerlink" title="解决方案如下："></a>解决方案如下：</h4><p>1、在Android工程的build.gradle中启用MultiDex并包含MultiDex支持</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">defaultConfig </span><br><span class="line">&#123;</span><br><span class="line">    multiDexEnabled <span class="keyword">true</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">dependencies </span><br><span class="line">&#123; </span><br><span class="line">    compile <span class="string">'com.android.support:multidex:1.0.1'</span> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>重新Build一下工程或者MakeModule一下模块，目的是让配置生效<br>2、在Android工程的application中重写一下attachBaseContext</p>
-        
-          <a class="article-more-a" href="/2019/08/10/Unity编译Android超过65536的解决方法/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Unity</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Android</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/10/Unity编译Android超过65536的解决方法/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-新起点" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/01/新起点/">新起点</a>
+    <h1 class="article-title" itemprop="name">
+      新起点
     </h1>
   
 
@@ -265,6 +180,27 @@
       
 
       
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
     </div>
     <div class="article-info article-info-index">
       
@@ -283,16 +219,79 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/05/01/新起点/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://coding.red/2019/05/01/新起点/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2019/08/10/Unity编译Android超过65536的解决方法/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Unity编译Android超过65536的解决方法
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -312,8 +311,14 @@
 
 
 
+  
+  
+  
 
   
+
+  
+
   
 
 
@@ -336,8 +341,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
