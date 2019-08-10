@@ -164,6 +164,95 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-IOS错误Could-not-produce-class-with-ID" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/Unity-IOS-Could-not-produce-class-with-ID/">Unity发布IOS错误Could not produce class with ID</a>
+    </h1>
+  
+
+        
+        <a href="/Unity-IOS-Could-not-produce-class-with-ID/" class="archive-article-date">
+  	<time datetime="2019-08-10T11:06:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p><strong>有时候Unity发布在IOS上会出现：<code>Could not produce class with ID XXX.This could be caused by a class being stripped from the build even though it is needed. Try disabling &#39;Strip Engine Code&#39; inPlayer Settings.:&lt;LoadWWWIEnumerator&gt;c__Iterator99:MoveNext()</code>的错误。</strong></p>
+<h2 id="原因及解决办法"><a href="#原因及解决办法" class="headerlink" title="原因及解决办法"></a>原因及解决办法</h2><p><strong>原因是勾选了<code>Strip Engine Code</code>，所以我们要做的就是在<code>Player Setting – Other Setting</code>，去掉勾选 <code>Strip Engine</code></strong></p>
+<h2 id="如果要Strip-Engine"><a href="#如果要Strip-Engine" class="headerlink" title="如果要Strip Engine"></a>如果要Strip Engine</h2><p><strong>如果要Strip Engine，那就需要把不想被strip的添加进来。</strong><br><br>1、新建link.xml放在Assets目录下，里面添加不想被strip的dll的名字<br><br>ID查询： <a href="https://docs.unity3d.com/Manual/ClassIDReference.html" target="_blank" rel="noopener">https://docs.unity3d.com/Manual/ClassIDReference.html</a> <br><br>下面是导入高通Vuforia之后，SDK中默认的link.xml的内容</p>
+        
+          <a class="article-more-a" href="/Unity-IOS-Could-not-produce-class-with-ID/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Unity</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/U3D//" class="article-tag-list-link color4">U3D</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/Unity-IOS-Could-not-produce-class-with-ID/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-hexo更换静态链接" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -177,7 +266,7 @@
 
         
         <a href="/hexo-url/" class="archive-article-date">
-  	<time datetime="2019-08-10T10:28:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-10</time>
+  	<time datetime="2019-08-03T10:28:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-03</time>
 </a>
         
       </header>
@@ -254,94 +343,6 @@
 
 
   
-    <article id="post-终于把Wordpress换成Hexo了" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/wptohexo/">终于把Wordpress换成Hexo了</a>
-    </h1>
-  
-
-        
-        <a href="/wptohexo/" class="archive-article-date">
-  	<time datetime="2019-08-10T09:27:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="为什么要抛弃Wordpress？"><a href="#为什么要抛弃Wordpress？" class="headerlink" title="为什么要抛弃Wordpress？"></a>为什么要抛弃Wordpress？</h1><p>粗略算了一下用Wp已经有7年多的时间了，也算是Wp的忠实粉丝了，至于为什么要换成Hexo我想有以下几点原因：<br><br>1、一直以来觉得Wp有点太过臃肿了，我只是写个博客而已，但是Wp给我的感觉有点杀鸡用牛刀的感觉。<br><br>2、平时真的是没有太多的时间管理VPS，以至于这7年的时间我的博客搬了无数次家，从主机到Vps，从搬瓦工到VirMarch，但是最终留给我的只是在浪费时间，大多数有价值的笔记都在印象笔记里面，博客真的只是成了想起来发发牢骚的工具…<br><br>3、费钱，最便宜的Vps也要一百多一年，虽然按年算看起来没什么，但是Vps的利用率不高，平时也就是挂博客而已…<br><br>4、博客备份的问题，虽然站上没什么东西，但是也不希望让自己的努力白费了，所以需要定期备份，虽然备份也简单，装个插件给个邮箱地址他会定期给你发备份邮件，但是…我大多数真的是不会把备份給存档…<br><br>以上我觉得是最主要的原因吧！</p>
-<h1 id="为什么选Hexo"><a href="#为什么选Hexo" class="headerlink" title="为什么选Hexo?"></a>为什么选Hexo?</h1>
-        
-          <a class="article-more-a" href="/wptohexo/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hexo</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Other//" class="article-tag-list-link color1">Other</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/wptohexo/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-給Hexo增加分类" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -355,7 +356,7 @@
 
         
         <a href="/hexo-categories/" class="archive-article-date">
-  	<time datetime="2019-08-10T08:55:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-10</time>
+  	<time datetime="2019-07-21T08:55:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-21</time>
 </a>
         
       </header>
@@ -411,6 +412,94 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/hexo-categories/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-终于把Wordpress换成Hexo了" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/wptohexo/">终于把Wordpress换成Hexo了</a>
+    </h1>
+  
+
+        
+        <a href="/wptohexo/" class="archive-article-date">
+  	<time datetime="2019-07-20T09:27:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="为什么要抛弃Wordpress？"><a href="#为什么要抛弃Wordpress？" class="headerlink" title="为什么要抛弃Wordpress？"></a>为什么要抛弃Wordpress？</h1><p>粗略算了一下用Wp已经有7年多的时间了，也算是Wp的忠实粉丝了，至于为什么要换成Hexo我想有以下几点原因：<br><br>1、一直以来觉得Wp有点太过臃肿了，我只是写个博客而已，但是Wp给我的感觉有点杀鸡用牛刀的感觉。<br><br>2、平时真的是没有太多的时间管理VPS，以至于这7年的时间我的博客搬了无数次家，从主机到Vps，从搬瓦工到VirMarch，但是最终留给我的只是在浪费时间，大多数有价值的笔记都在印象笔记里面，博客真的只是成了想起来发发牢骚的工具…<br><br>3、费钱，最便宜的Vps也要一百多一年，虽然按年算看起来没什么，但是Vps的利用率不高，平时也就是挂博客而已…<br><br>4、博客备份的问题，虽然站上没什么东西，但是也不希望让自己的努力白费了，所以需要定期备份，虽然备份也简单，装个插件给个邮箱地址他会定期给你发备份邮件，但是…我大多数真的是不会把备份給存档…<br><br>以上我觉得是最主要的原因吧！</p>
+<h1 id="为什么选Hexo"><a href="#为什么选Hexo" class="headerlink" title="为什么选Hexo?"></a>为什么选Hexo?</h1>
+        
+          <a class="article-more-a" href="/wptohexo/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hexo</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Other//" class="article-tag-list-link color1">Other</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/wptohexo/">展开全文 >></a>
         </p>
       
 
@@ -709,11 +798,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">生活</a>
+                <a href="javascript:void(0)" class="js-tag color1">Unity</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Unity</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -721,7 +810,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color3">生活</a>
               </li>
              
               <li class="article-tag-list-item">
