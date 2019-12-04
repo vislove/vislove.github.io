@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="前言我们的项目离不开框架，在开发中它不仅能帮我们提高工作效率，同时它还能够实现模块之间很好的解耦，有利于团队协作和减少日后的维护成本。而今天要谈到的PureMVC就是一款轻量级遵循MVC结构的框架，底层代码加起来也就几百行，比较容易上手。PureMVC作为一款跨平台的框架，无论你是Java程序员还是C#程序员都可以套用该框架来完善你的项目，接下来以我个人的理解说一下PureMVC在Unity中的使">
+<meta name="keywords" content="Unity,PureMVC,框架">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅谈Unity中的PureMVC">
+<meta property="og:url" content="http://coding.red/unity_puremvc/index.html">
+<meta property="og:site_name" content="Red Coding">
+<meta property="og:description" content="前言我们的项目离不开框架，在开发中它不仅能帮我们提高工作效率，同时它还能够实现模块之间很好的解耦，有利于团队协作和减少日后的维护成本。而今天要谈到的PureMVC就是一款轻量级遵循MVC结构的框架，底层代码加起来也就几百行，比较容易上手。PureMVC作为一款跨平台的框架，无论你是Java程序员还是C#程序员都可以套用该框架来完善你的项目，接下来以我个人的理解说一下PureMVC在Unity中的使">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://img.coding.red/wp-content/uploads/2019/11/PureMVC_01.png">
+<meta property="og:image" content="http://img.coding.red/wp-content/uploads/2019/11/PureMVC_02.png">
+<meta property="og:updated_time" content="2019-12-04T02:34:25.534Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="浅谈Unity中的PureMVC">
+<meta name="twitter:description" content="前言我们的项目离不开框架，在开发中它不仅能帮我们提高工作效率，同时它还能够实现模块之间很好的解耦，有利于团队协作和减少日后的维护成本。而今天要谈到的PureMVC就是一款轻量级遵循MVC结构的框架，底层代码加起来也就几百行，比较容易上手。PureMVC作为一款跨平台的框架，无论你是Java程序员还是C#程序员都可以套用该框架来完善你的项目，接下来以我个人的理解说一下PureMVC在Unity中的使">
+<meta name="twitter:image" content="http://img.coding.red/wp-content/uploads/2019/11/PureMVC_01.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>浅谈Unity中的PureMVC</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/categories/U3D/">Unity</a></li>
+         
+          <li><a href="/categories/Web/">Web</a></li>
+         
+          <li><a href="/categories/Vps/">Vps</a></li>
+         
+          <li><a href="/categories/Other/">Other</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/texture2Dtosprite/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/Unity-IOS-Could-not-produce-class-with-ID/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://coding.red/unity_puremvc/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://coding.red/unity_puremvc/&text=浅谈Unity中的PureMVC"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://coding.red/unity_puremvc/&title=浅谈Unity中的PureMVC"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://coding.red/unity_puremvc/&is_video=false&description=浅谈Unity中的PureMVC"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=浅谈Unity中的PureMVC&body=Check out this article: http://coding.red/unity_puremvc/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://coding.red/unity_puremvc/&title=浅谈Unity中的PureMVC"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://coding.red/unity_puremvc/&title=浅谈Unity中的PureMVC"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://coding.red/unity_puremvc/&title=浅谈Unity中的PureMVC"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://coding.red/unity_puremvc/&title=浅谈Unity中的PureMVC"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://coding.red/unity_puremvc/&name=浅谈Unity中的PureMVC&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PureMVC结构图"><span class="toc-number">2.</span> <span class="toc-text">PureMVC结构图</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#结构解析-拆分"><span class="toc-number">3.</span> <span class="toc-text">结构解析/拆分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#第一部分-对Model，View，Controller的拆分"><span class="toc-number">3.0.1.</span> <span class="toc-text">第一部分 - 对Model，View，Controller的拆分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第二部分-对View的拆分"><span class="toc-number">3.0.2.</span> <span class="toc-text">第二部分 - 对View的拆分</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#View和UI的关系解析之中介者（Mediator）"><span class="toc-number">3.0.2.1.</span> <span class="toc-text">View和UI的关系解析之中介者（Mediator）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Mediator与View的关系"><span class="toc-number">3.0.2.2.</span> <span class="toc-text">Mediator与View的关系</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第三部分-Controller与Command的拆分"><span class="toc-number">3.0.3.</span> <span class="toc-text">第三部分 - Controller与Command的拆分</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#两种类型的Command"><span class="toc-number">3.0.3.1.</span> <span class="toc-text">两种类型的Command</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第四部分-Model和Proxy的拆分"><span class="toc-number">3.0.4.</span> <span class="toc-text">第四部分 - Model和Proxy的拆分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第五部分-Proxy设计模式与Mediator设计模式"><span class="toc-number">3.0.5.</span> <span class="toc-text">第五部分 - Proxy设计模式与Mediator设计模式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Mediator发送、声明、接收Notification"><span class="toc-number">3.0.5.1.</span> <span class="toc-text">Mediator发送、声明、接收Notification</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Proxy发送，但不接收Notification"><span class="toc-number">3.0.5.2.</span> <span class="toc-text">Proxy发送，但不接收Notification</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第六部分-Observer-与-Notification"><span class="toc-number">3.0.6.</span> <span class="toc-text">第六部分 - Observer 与 Notification</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#定义Notification常量"><span class="toc-number">3.0.6.1.</span> <span class="toc-text">定义Notification常量</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-number">3.0.7.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        浅谈Unity中的PureMVC
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Red Coding</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2019-08-18T07:07:35.000Z" itemprop="datePublished">2019-08-18</time>
+        
+        (Updated: <time datetime="2019-12-04T02:34:25.534Z" itemprop="dateModified">2019-12-04</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/U3D/">U3D</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/PureMVC/">PureMVC</a>, <a class="tag-link" href="/tags/Unity/">Unity</a>, <a class="tag-link" href="/tags/框架/">框架</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p><strong>我们的项目离不开框架，在开发中它不仅能帮我们提高工作效率，同时它还能够实现模块之间很好的解耦，有利于团队协作和减少日后的维护成本。而今天要谈到的PureMVC就是一款轻量级遵循MVC结构的框架，底层代码加起来也就几百行，比较容易上手。</strong><br><br><strong>PureMVC作为一款跨平台的框架，无论你是Java程序员还是C#程序员都可以套用该框架来完善你的项目，接下来以我个人的理解说一下PureMVC在Unity中的使用，如有不对的地方欢迎指出。</strong></p>
+<h1 id="PureMVC结构图"><a href="#PureMVC结构图" class="headerlink" title="PureMVC结构图"></a>PureMVC结构图</h1><p><img src="http://img.coding.red/wp-content/uploads/2019/11/PureMVC_01.png" alt></p>
+<h1 id="结构解析-拆分"><a href="#结构解析-拆分" class="headerlink" title="结构解析/拆分"></a>结构解析/拆分</h1><h3 id="第一部分-对Model，View，Controller的拆分"><a href="#第一部分-对Model，View，Controller的拆分" class="headerlink" title="第一部分 - 对Model，View，Controller的拆分"></a>第一部分 - 对Model，View，Controller的拆分</h3><p><strong>如图我们可以看出Model，View，Controller之间并没有任何的直接通信，PureMVC的理念就是利用设计模式把模块之间的耦合降到最低。在PureMVC中，Model,View,Controller是三个单例模式类，三者是框架的核心层，也就是我们常说的Manager管理类，他们分别定义了字典用于保存引用并提供了注册（Register）,添加（Add）,删除（Remove）,检索（Retrieve）等方法，将使用到的具体层(Model,View,Controller)，保存到字典中进行统一管理，而对于模块的调度最后是通过外观模式，也就是图中的Facade模块对外进行访问的。这也是与核心层通信的唯一接口。Facade类应被当成抽象类, 永远不被直接实例化，我们一般都是通过继承Facade类，来重写或添加Facade的方法来实现具体的应用，一般在项目的最开始或者说启动框架的第一个脚本就会继承此类。</strong><br></p>
+<h3 id="第二部分-对View的拆分"><a href="#第二部分-对View的拆分" class="headerlink" title="第二部分 - 对View的拆分"></a>第二部分 - 对View的拆分</h3><p><strong>View就是视图层，在MVC中是用来展示数据和玩家交互的地方，而在PureMVC中View却不是直接和玩家交互的地方而是作为三大核心层中的View层，用来增删改查观察者和Mediator引用的地方，真正负责面向玩家和玩家交互的地方是UI层（也就是Unity中的Panel），而UI层是通过中介者（Mediator）来对外请求和接收数据的。而Mediator继承自IMediator这个接口是负责添加事件监听器，发送或接收 Notification ，直接改变视图组件的状态的。也就是项目中定义消息和监听消息的地方，同时也提供了对UI的直接访问的方法（ViewComponent），我们通过这个方法类型转换后可以直接访问UI层中的方法。</strong><br></p>
+<h4 id="View和UI的关系解析之中介者（Mediator）"><a href="#View和UI的关系解析之中介者（Mediator）" class="headerlink" title="View和UI的关系解析之中介者（Mediator）"></a>View和UI的关系解析之中介者（Mediator）</h4><p><strong>在PureMVC中UI想请求和接收数据必须经过Mediator，而Mediator其实就是设计模式中的<code>中介者模式（定义：用一个中介对象来封装一系列的对象交互）</code>，Mediator只对UI负责，它负责UI的一系列对外交互、状态的改变和保存View的引用，在Unity中每当我们Instance一个Panel，都需要在框架层对Mediator进行创建和注册的，而创建Mediator时需要把Instance出来的Panel对Mediator进行赋值（相当于对Mediator的构造函数进行赋值），我们拆分源码可以看到Mediator提供了两类的构造函数，一类是对MediatorName的构造，一类是MediatorName和ViewComponemt进行构造的。上面提到的ViewComponent这个方法其实就是这个时候对其进行赋值的，它保存在Panel对应的Mediator中。在PureMVC中每个页面都会对应一个Mediator或者多个页面对应一个Mediator这个就看具体需求了。而Mediator是和Panel单项耦合的 UI &lt;= Mediator，也就是Mediator可以直接访问UI也就是Panel中的方法，而UI只能通过发送Mediator中注册的消息通过Mediator来对外请求数据的。重交互，强逻辑。</strong></p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> IMediator mediator;</span><br><span class="line"><span class="keyword">private</span> ViewBase view;</span><br><span class="line"></span><br><span class="line">view = Instance(Resource.Load(<span class="string">"xxxx"</span>)).GetComponent&lt;ViewBase&gt;();</span><br><span class="line"></span><br><span class="line">mediator = (IMediator)System.Activator.CreateInstance(Type.GetType(<span class="string">"xxxMediator"</span>), <span class="string">"xxxMediator"</span>, view);</span><br></pre></td></tr></table></figure>
+
+<h4 id="Mediator与View的关系"><a href="#Mediator与View的关系" class="headerlink" title="Mediator与View的关系"></a>Mediator与View的关系</h4><p><strong>上面说到Panel是通过Mediator进行数据请求和接收数据的，而Mediator只对UI负责，而Mediator是怎么和外界交互的呢？其实每个Mediator是通过Facade提供的接口注册到View的，在View里面有个字典专门来记录这些Mediator引用的，并且对外提供增删改查的方法。如下源码：</strong></p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//------------------- Facade.cs ------------------</span></span><br><span class="line"><span class="comment">//&lt; 初始化Facade时，通过View的单利对View进行了引用</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">InitializeView</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (m_view != <span class="literal">null</span>) <span class="keyword">return</span>;</span><br><span class="line">	m_view = View.Instance;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">RegisterMediator</span>(<span class="params">IMediator mediator</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	m_view.RegisterMediator(mediator);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">virtual</span> IMediator <span class="title">RetrieveMediator</span>(<span class="params"><span class="keyword">string</span> mediatorName</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> m_view.RetrieveMediator(mediatorName);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">virtual</span> IMediator <span class="title">RemoveMediator</span>(<span class="params"><span class="keyword">string</span> mediatorName</span>)</span></span><br><span class="line"><span class="function"></span>&#123;	</span><br><span class="line">	<span class="keyword">return</span> m_view.RemoveMediator(mediatorName);</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keyword">bool</span> <span class="title">HasMediator</span>(<span class="params"><span class="keyword">string</span> mediatorName</span>)</span></span><br><span class="line"><span class="function"></span>&#123;		</span><br><span class="line">	<span class="keyword">return</span> m_view.HasMediator(mediatorName);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//------------------- View.cs ------------------</span></span><br><span class="line"><span class="comment">//&lt; 保存所有Mediator的字典 </span></span><br><span class="line"><span class="keyword">protected</span> IDictionary&lt;<span class="keyword">string</span>, IMediator&gt; m_mediatorMap; </span><br><span class="line"><span class="comment">// ... 以及提供外部添加、移除、检索Mediator的方法 详细可以查看源码</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="第三部分-Controller与Command的拆分"><a href="#第三部分-Controller与Command的拆分" class="headerlink" title="第三部分 - Controller与Command的拆分"></a>第三部分 - Controller与Command的拆分</h3><p><strong>其实Controller与Command的关系就和View和Mediator类似，这一段我直接引用网上的说法就不在赘述了。Controller保存了所有Command的映射，Command 类是无状态的，只在需要时才被创建。这里使用到了Command命令设计模式，即将一个“请求”,”行为”封装为一个对象，将逻辑的部分进行独立封装，提高复用性，对View或Mediator的修改也不会影响到Command本身。通过Facade顶层接口，可以在Proxy，Mediator，Command之间，相互访问和通信。Command 可以获取 Proxy 和Mediator对象并与之交互，发送 Notification，执行其他的 Command。经常用于复杂的或系统范围的操作，如应用程序的“启动”和“关闭”。应用程序的业务逻辑应该在这里实现。Facade 需要在启动时初始化 Controller，建立 Notification 与 Command的映射。Controller 会注册侦听每一个 Notification，当被通知到时，Controller 会实例化一个该 Notification 对应的 Command 类的对象。最后，将 Notification 作为参数传给execute 方法。具体可以参考Command基类的实现。也就是说，Command的执行是通过发送Notification通知操作的。Command 对象是无状态的；只有在需要的时候（ Controller 收到相应的Notification）才会被创建，并且在被执行（调用 execute 方法）之后就会被删除。所以不要在那些生命周期长的对象（long-living object）里引用 Command 对象。在运行中，可以通过Command来初始化Proxy和Mediator，即注册到Facade中。</strong></p>
+<h4 id="两种类型的Command"><a href="#两种类型的Command" class="headerlink" title="两种类型的Command"></a>两种类型的Command</h4><p><strong>Command 要实现 ICommand 接口。在 PureMVC 中有两个类实现了ICommand 接口：SimpleCommand、MacroCommand。SimpleCommand 只有一个 execute 方法，execute 方法接受一个Inotification 实例做为参数。实际应用中，你只需要重写这个方法就行了。MacroCommand 让你可以顺序执行多个 Command。每个执行都会创建一个 Command 对象并传参一个对源 Notification 的引用。MacroCommand 在构造方法调用自身的 initializeMacroCommand 方法。实际应用中，你需重写这个方法，调用 addSubCommand 添加子 Command。你可以任意组合 SimpleCommand 和 MacroCommand 成为一个新的 Command。</strong></p>
+<h3 id="第四部分-Model和Proxy的拆分"><a href="#第四部分-Model和Proxy的拆分" class="headerlink" title="第四部分 - Model和Proxy的拆分"></a>第四部分 - Model和Proxy的拆分</h3><p><strong>Model即数据(Data Object)，游戏是基于数据驱动的，比如角色的数据，包括HP，MP，金币，等级，经验，技能等等，在PureMVC中，是通过Proxy来进行管理，Proxy即代理设计模式，“为其它对象提供代理以控制该对象的访问”，即代理人，在PureMVC中被用来控制和管理数据模型的。Data Object即是以任意结构存储数据的对象。也就是说，我们不会直接和Model通信，对Model的增删改查均是通过Proxy来处理的。关于Proxy代理模式，从代码角度，也满足”改变一个不影响其它“，我对部分数据的修改，不应该影响到其它的数据。我们继续看上面的示意图，看下Model的箭头，他只和Facade进行交互。上面提到过，这是为了降低耦合性。旁边的一众Obj即Model,对应着Proxy,但并不是一个Model对应一个Proxy,如果是这样，就太繁琐了，比如一个模块中，可能包括很多种不同的Model数据，你可以定义多个不同的Model，但可以通过一个Proxy进行管理，这样更方便。通常会以同步的方式取得或设置Model数据。Proxy 可能会提供访问 DataObject 部分属性或方法的 API，也可能直接提供 Data Object 的引用(但不建议这样做，我们应该保护Model，提供相应的接口来访问）。如果提供了更新 Data Object 的方法，那么在数据被修改时可能会发送一个 Notifidation 通知系统的其它部分。这里Notification通知，其实就是观察者模式，当一个对象发生改变的时候，同时也需要有很多其它的对象要对此做出响应，这时候就要使用观察者模式了，发布-订阅的模式，比如我们订阅了某个微信公众号，公众号发表了一篇文章，所有订阅的用户都可以收到提醒，这在游戏中无处不在，当Model发生变化的时候，通知View组件进行更新。那么在View中，就会有相应的方法来处理Notification通知，并进行相应的逻辑处理。Proxy只发送Notification通知（在数据改变的时候），他并不处理Notification通知，他并不关心View组件如何变化。Proxy 对象不应该通过引用、操作 Mediator 对象来通知系统它的 DataObject（数据对象）发生了改变。也就是说，Mediator可以获取Proxy，但Proxy中不应该获取Mediator，如果要通知View层进行更新，发送Notification通知即可。（Proxy 不关心这些 Notification 被发出后会影响到系统的什么）这样Proxy和Mediator之间只存在单向耦合。Proxy中也包含了一定的逻辑处理的部分，我们把 Domain Logic（域逻辑）尽可能放在 Proxy 中实现，这样尽可能地做到 Model 层与相关联的 View 层、Controller 层的分离。</strong></p>
+<h3 id="第五部分-Proxy设计模式与Mediator设计模式"><a href="#第五部分-Proxy设计模式与Mediator设计模式" class="headerlink" title="第五部分 - Proxy设计模式与Mediator设计模式"></a>第五部分 - Proxy设计模式与Mediator设计模式</h3><p><strong>前面提到的两个设计模式，两者所做的事情非常的相似，但定义上，Proxy更侧重于控制数据的访问，相当于真实数据的代表，而Mediator则更侧重于数据的交互（封装了一系列对象的交互），强逻辑，比如AB之间交互的中间人，那么对于UI的交互是相对复杂繁琐的，所以使用Mediator来负责处理View上的操作。</strong></p>
+<h4 id="Mediator发送、声明、接收Notification"><a href="#Mediator发送、声明、接收Notification" class="headerlink" title="Mediator发送、声明、接收Notification"></a>Mediator发送、声明、接收Notification</h4><p><strong>当用 View 注册 Mediator 时，Mediator 的 listNotifications 方法会被调用，以数组形式返回该 Mediator 对象所关心的所有 Notification。之后，当系统其它角色发出同名的 Notification（通知）时，关心这个通知的Mediator 都会调用 handleNotification 方法并将 Notification 以参数传递到方法。这里Mediator是被通知者，当Proxy数据进行改变时，Mediator接收到通知，并对UI进行更新</strong></p>
+<h4 id="Proxy发送，但不接收Notification"><a href="#Proxy发送，但不接收Notification" class="headerlink" title="Proxy发送，但不接收Notification"></a>Proxy发送，但不接收Notification</h4><p><strong>在很多场合下 Proxy 需要发送 Notification（通知），比如：Proxy 从远程服务接收到数据时，发送 Notification 告诉系统；或当 Proxy 的数据被更新时，发送 Notification 通知视图组件进行更新等等。如果让 Proxy 也侦听 Notification（通知）会导致它和 View（视图）层、Controller（控制）层的耦合度太高。View 和 Controller 必须监听 Proxy 发送的 Notification，因为它们的职责是通过可视化的界面使用户能与 Proxy 持有的数据交互。不过对 View 层和 Controller 层的改变不应该影响到 Model 层。</strong></p>
+<h3 id="第六部分-Observer-与-Notification"><a href="#第六部分-Observer-与-Notification" class="headerlink" title="第六部分 - Observer 与 Notification"></a>第六部分 - Observer 与 Notification</h3><p><strong>PureMVC的通信是使用观察者模式以一种松耦合的方式来实现的，几乎在游戏开发中，无处不在的设计模式，你只需要使用一个非常简单的方法从 Proxy,Mediator, Command 和 Facade 发送 Notification，甚至不需要创建一个Notification 实例。Facade 和 Proxy 只能发送 Notification，Mediators 既可以发送也可以接收 Notification，Notification 被映射到 Command，同时 Command 也可以发送 Notification。这是一种“发布/订阅”机制 ，所有的观察者都可以收到相同的通知。例如多个书刊订阅者可以订阅同一份杂志，当杂志有新刊出版时，所有的订阅者都会被通知。Facade 保存了 Command 与 Notification 之间的映射。当 Notification（通知）被发出时，对应的 Command（命令）就会自动地由 Controller 执行。Command 实现复杂的交互，降低 View 和 Model 之间的耦合性。</strong></p>
+<h4 id="定义Notification常量"><a href="#定义Notification常量" class="headerlink" title="定义Notification常量"></a>定义Notification常量</h4><p><strong>当这些 Notification 的名称常量需要被其他的程序访问时，我们可以使用单独的“ApplicationConstants”类来存放这些 Notification 名称常量定义。不管什么时候，都应该把 Notification（通知）名称定义为常量，需要引用一个 Notification 时就使用它的名称常量，这样做可以避免一些编译时无法发现的错误。因为编译器可以检查常量；而使用字符串，如果你手误输入错误的字符串，编译器也不法知道，也无从报错。</strong></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p><strong>View和Model之间是单向依赖关系，View必须知道Model是什么，View也是基于Model的数据来显示视图上的内容。而Model并不在乎View上的内容。Proxy和Mediator在职责上，均是代理，中介者的角色，负责与其它组件进行通信。而他们的注册都由Facade来统一进行管理。Proxy和Mediator中不应该包含大量的业务逻辑，业务逻辑部分应该放在Command中处理，对于数据本身的一些操作，应该放在Proxy和Mediator中。虽然Mediator中可以访问任意的Proxy，并进行修改，但不建议这样做，由 Command 来做这些工作可以实现 View 和 Model 之间的松耦合。这样Command可以被View的其它部分重用。</strong></p>
+<p><img src="http://img.coding.red/wp-content/uploads/2019/11/PureMVC_02.png" alt></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/categories/U3D/">Unity</a></li>
+         
+          <li><a href="/categories/Web/">Web</a></li>
+         
+          <li><a href="/categories/Vps/">Vps</a></li>
+         
+          <li><a href="/categories/Other/">Other</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PureMVC结构图"><span class="toc-number">2.</span> <span class="toc-text">PureMVC结构图</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#结构解析-拆分"><span class="toc-number">3.</span> <span class="toc-text">结构解析/拆分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#第一部分-对Model，View，Controller的拆分"><span class="toc-number">3.0.1.</span> <span class="toc-text">第一部分 - 对Model，View，Controller的拆分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第二部分-对View的拆分"><span class="toc-number">3.0.2.</span> <span class="toc-text">第二部分 - 对View的拆分</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#View和UI的关系解析之中介者（Mediator）"><span class="toc-number">3.0.2.1.</span> <span class="toc-text">View和UI的关系解析之中介者（Mediator）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Mediator与View的关系"><span class="toc-number">3.0.2.2.</span> <span class="toc-text">Mediator与View的关系</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第三部分-Controller与Command的拆分"><span class="toc-number">3.0.3.</span> <span class="toc-text">第三部分 - Controller与Command的拆分</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#两种类型的Command"><span class="toc-number">3.0.3.1.</span> <span class="toc-text">两种类型的Command</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第四部分-Model和Proxy的拆分"><span class="toc-number">3.0.4.</span> <span class="toc-text">第四部分 - Model和Proxy的拆分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第五部分-Proxy设计模式与Mediator设计模式"><span class="toc-number">3.0.5.</span> <span class="toc-text">第五部分 - Proxy设计模式与Mediator设计模式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Mediator发送、声明、接收Notification"><span class="toc-number">3.0.5.1.</span> <span class="toc-text">Mediator发送、声明、接收Notification</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Proxy发送，但不接收Notification"><span class="toc-number">3.0.5.2.</span> <span class="toc-text">Proxy发送，但不接收Notification</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#第六部分-Observer-与-Notification"><span class="toc-number">3.0.6.</span> <span class="toc-text">第六部分 - Observer 与 Notification</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#定义Notification常量"><span class="toc-number">3.0.6.1.</span> <span class="toc-text">定义Notification常量</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-number">3.0.7.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://coding.red/unity_puremvc/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://coding.red/unity_puremvc/&text=浅谈Unity中的PureMVC"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://coding.red/unity_puremvc/&title=浅谈Unity中的PureMVC"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://coding.red/unity_puremvc/&is_video=false&description=浅谈Unity中的PureMVC"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=浅谈Unity中的PureMVC&body=Check out this article: http://coding.red/unity_puremvc/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://coding.red/unity_puremvc/&title=浅谈Unity中的PureMVC"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://coding.red/unity_puremvc/&title=浅谈Unity中的PureMVC"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://coding.red/unity_puremvc/&title=浅谈Unity中的PureMVC"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://coding.red/unity_puremvc/&title=浅谈Unity中的PureMVC"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://coding.red/unity_puremvc/&name=浅谈Unity中的PureMVC&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2019 Sor
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/categories/U3D/">Unity</a></li>
+         
+          <li><a href="/categories/Web/">Web</a></li>
+         
+          <li><a href="/categories/Vps/">Vps</a></li>
+         
+          <li><a href="/categories/Other/">Other</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+    <!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<!-- clipboard -->
+
+  <script src="/lib/clipboard/clipboard.min.js"></script>
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight .code pre").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      target: function(trigger) {
+        return trigger.nextElementSibling;
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-145902463-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Baidu Analytics -->
+
+    <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?f516690a137d934d0449e8b1b1c2687b";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

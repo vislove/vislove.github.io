@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="有时候Unity发布在IOS上会出现：Could not produce class with ID XXX.This could be caused by a class being stripped from the build even though it is needed. Try disabling &amp;#39;Strip Engine Code&amp;#39; inPlayer Setti">
+<meta name="keywords" content="Unity">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Unity发布IOS错误Could not produce class with ID">
+<meta property="og:url" content="http://coding.red/Unity-IOS-Could-not-produce-class-with-ID/index.html">
+<meta property="og:site_name" content="Red Coding">
+<meta property="og:description" content="有时候Unity发布在IOS上会出现：Could not produce class with ID XXX.This could be caused by a class being stripped from the build even though it is needed. Try disabling &amp;#39;Strip Engine Code&amp;#39; inPlayer Setti">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://coding.red/assets/BlogImg/IOS.jpeg">
+<meta property="og:updated_time" content="2019-12-04T02:34:25.528Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Unity发布IOS错误Could not produce class with ID">
+<meta name="twitter:description" content="有时候Unity发布在IOS上会出现：Could not produce class with ID XXX.This could be caused by a class being stripped from the build even though it is needed. Try disabling &amp;#39;Strip Engine Code&amp;#39; inPlayer Setti">
+<meta name="twitter:image" content="http://coding.red/assets/BlogImg/IOS.jpeg">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Unity发布IOS错误Could not produce class with ID</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/categories/U3D/">Unity</a></li>
+         
+          <li><a href="/categories/Web/">Web</a></li>
+         
+          <li><a href="/categories/Vps/">Vps</a></li>
+         
+          <li><a href="/categories/Other/">Other</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/unity_puremvc/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/hexo-url/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://coding.red/Unity-IOS-Could-not-produce-class-with-ID/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://coding.red/Unity-IOS-Could-not-produce-class-with-ID/&text=Unity发布IOS错误Could not produce class with ID"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://coding.red/Unity-IOS-Could-not-produce-class-with-ID/&title=Unity发布IOS错误Could not produce class with ID"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://coding.red/Unity-IOS-Could-not-produce-class-with-ID/&is_video=false&description=Unity发布IOS错误Could not produce class with ID"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Unity发布IOS错误Could not produce class with ID&body=Check out this article: http://coding.red/Unity-IOS-Could-not-produce-class-with-ID/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://coding.red/Unity-IOS-Could-not-produce-class-with-ID/&title=Unity发布IOS错误Could not produce class with ID"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://coding.red/Unity-IOS-Could-not-produce-class-with-ID/&title=Unity发布IOS错误Could not produce class with ID"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://coding.red/Unity-IOS-Could-not-produce-class-with-ID/&title=Unity发布IOS错误Could not produce class with ID"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://coding.red/Unity-IOS-Could-not-produce-class-with-ID/&title=Unity发布IOS错误Could not produce class with ID"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://coding.red/Unity-IOS-Could-not-produce-class-with-ID/&name=Unity发布IOS错误Could not produce class with ID&description=&lt;p&gt;&lt;img src=&#34;/assets/BlogImg/IOS.jpeg&#34; alt&gt;&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;有时候Unity发布在IOS上会出现：&lt;code&gt;Could not produce class with ID XXX.This could be caused by a class being stripped from the build even though it is needed. Try disabling &amp;#39;Strip Engine Code&amp;#39; inPlayer Settings.:&amp;lt;LoadWWWIEnumerator&amp;gt;c__Iterator99:MoveNext()&lt;/code&gt;的错误。&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;原因及解决办法&#34;&gt;&lt;a href=&#34;#原因及解决办法&#34; class=&#34;headerlink&#34; title=&#34;原因及解决办法&#34;&gt;&lt;/a&gt;原因及解决办法&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;原因是勾选了&lt;code&gt;Strip Engine Code&lt;/code&gt;，所以我们要做的就是在&lt;code&gt;Player Setting – Other Setting&lt;/code&gt;，去掉勾选 &lt;code&gt;Strip Engine&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;如果要Strip-Engine&#34;&gt;&lt;a href=&#34;#如果要Strip-Engine&#34; class=&#34;headerlink&#34; title=&#34;如果要Strip Engine&#34;&gt;&lt;/a&gt;如果要Strip Engine&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;如果要Strip Engine，那就需要把不想被strip的添加进来。&lt;/strong&gt;&lt;br&gt;&lt;br&gt;1、新建link.xml放在Assets目录下，里面添加不想被strip的dll的名字&lt;br&gt;&lt;br&gt;ID查询： &lt;a href=&#34;https://docs.unity3d.com/Manual/ClassIDReference.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://docs.unity3d.com/Manual/ClassIDReference.html&lt;/a&gt; &lt;br&gt;&lt;br&gt;下面是导入高通Vuforia之后，SDK中默认的link.xml的内容&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#原因及解决办法"><span class="toc-number">1.</span> <span class="toc-text">原因及解决办法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如果要Strip-Engine"><span class="toc-number">2.</span> <span class="toc-text">如果要Strip Engine</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Unity的默认值"><span class="toc-number">3.</span> <span class="toc-text">Unity的默认值</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Unity发布IOS错误Could not produce class with ID
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Red Coding</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2019-08-10T11:06:11.000Z" itemprop="datePublished">2019-08-10</time>
+        
+        (Updated: <time datetime="2019-12-04T02:34:25.528Z" itemprop="dateModified">2019-12-04</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/U3D/">U3D</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/Unity/">Unity</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p><img src="/assets/BlogImg/IOS.jpeg" alt><br></p>
+<p><strong>有时候Unity发布在IOS上会出现：<code>Could not produce class with ID XXX.This could be caused by a class being stripped from the build even though it is needed. Try disabling &#39;Strip Engine Code&#39; inPlayer Settings.:&lt;LoadWWWIEnumerator&gt;c__Iterator99:MoveNext()</code>的错误。</strong></p>
+<h2 id="原因及解决办法"><a href="#原因及解决办法" class="headerlink" title="原因及解决办法"></a>原因及解决办法</h2><p><strong>原因是勾选了<code>Strip Engine Code</code>，所以我们要做的就是在<code>Player Setting – Other Setting</code>，去掉勾选 <code>Strip Engine</code></strong></p>
+<h2 id="如果要Strip-Engine"><a href="#如果要Strip-Engine" class="headerlink" title="如果要Strip Engine"></a>如果要Strip Engine</h2><p><strong>如果要Strip Engine，那就需要把不想被strip的添加进来。</strong><br><br>1、新建link.xml放在Assets目录下，里面添加不想被strip的dll的名字<br><br>ID查询： <a href="https://docs.unity3d.com/Manual/ClassIDReference.html" target="_blank" rel="noopener">https://docs.unity3d.com/Manual/ClassIDReference.html</a> <br><br>下面是导入高通Vuforia之后，SDK中默认的link.xml的内容</p>
+<a id="more"></a>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">linker</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- The following assemblies contain namespaces that should be fully preserved</span></span><br><span class="line"><span class="comment">         even when assembly stripping is used. Not excluding the assemblies below from</span></span><br><span class="line"><span class="comment">         stripping can result in crashes or various exceptions. --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">assembly</span> <span class="attr">fullname</span>=<span class="string">"Vuforia.UnityExtensions"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">namespace</span> <span class="attr">fullname</span>=<span class="string">"Vuforia"</span> <span class="attr">preserve</span>=<span class="string">"all"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">assembly</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">assembly</span> <span class="attr">fullname</span>=<span class="string">"System"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">namespace</span> <span class="attr">fullname</span>=<span class="string">"System.Runtime.InteropServices"</span> <span class="attr">preserve</span>=<span class="string">"all"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">namespace</span> <span class="attr">fullname</span>=<span class="string">"System.Collections.Generic;"</span> <span class="attr">preserve</span>=<span class="string">"all"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">namespace</span> <span class="attr">fullname</span>=<span class="string">"System.Linq;"</span> <span class="attr">preserve</span>=<span class="string">"all"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">namespace</span> <span class="attr">fullname</span>=<span class="string">"System.Text.RegularExpressions;"</span> <span class="attr">preserve</span>=<span class="string">"all"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">namespace</span> <span class="attr">fullname</span>=<span class="string">"System.IO;"</span> <span class="attr">preserve</span>=<span class="string">"all"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">namespace</span> <span class="attr">fullname</span>=<span class="string">"System;"</span> <span class="attr">preserve</span>=<span class="string">"all"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">assembly</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">linker</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>如果提示的ID的是Editor的，比如 AnimatorController(ID 91)属于Editor包里的，不能用link.xm加回来，可以在Resource下建一个空的prefab,在上面挂一个AnimatorController，打包时留下这个prefab就可以确保这个类不被strip掉了。<br>参考：<a href="https://forum.unity3d.com/threads/could-not-produce-class-with-id-91-ios.267548/" target="_blank" rel="noopener">https://forum.unity3d.com/threads/could-not-produce-class-with-id-91-ios.267548/</a></p>
+<h2 id="Unity的默认值"><a href="#Unity的默认值" class="headerlink" title="Unity的默认值"></a>Unity的默认值</h2><p>以Unity5.3.5为例ios平台，默认勾选了 Strip Engine Code，且Script Background为I2CPP<br><br>android平台，默认disabled Strip Engine Code，且Script Background为Mono2x</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/categories/U3D/">Unity</a></li>
+         
+          <li><a href="/categories/Web/">Web</a></li>
+         
+          <li><a href="/categories/Vps/">Vps</a></li>
+         
+          <li><a href="/categories/Other/">Other</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#原因及解决办法"><span class="toc-number">1.</span> <span class="toc-text">原因及解决办法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如果要Strip-Engine"><span class="toc-number">2.</span> <span class="toc-text">如果要Strip Engine</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Unity的默认值"><span class="toc-number">3.</span> <span class="toc-text">Unity的默认值</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://coding.red/Unity-IOS-Could-not-produce-class-with-ID/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://coding.red/Unity-IOS-Could-not-produce-class-with-ID/&text=Unity发布IOS错误Could not produce class with ID"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://coding.red/Unity-IOS-Could-not-produce-class-with-ID/&title=Unity发布IOS错误Could not produce class with ID"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://coding.red/Unity-IOS-Could-not-produce-class-with-ID/&is_video=false&description=Unity发布IOS错误Could not produce class with ID"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Unity发布IOS错误Could not produce class with ID&body=Check out this article: http://coding.red/Unity-IOS-Could-not-produce-class-with-ID/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://coding.red/Unity-IOS-Could-not-produce-class-with-ID/&title=Unity发布IOS错误Could not produce class with ID"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://coding.red/Unity-IOS-Could-not-produce-class-with-ID/&title=Unity发布IOS错误Could not produce class with ID"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://coding.red/Unity-IOS-Could-not-produce-class-with-ID/&title=Unity发布IOS错误Could not produce class with ID"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://coding.red/Unity-IOS-Could-not-produce-class-with-ID/&title=Unity发布IOS错误Could not produce class with ID"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://coding.red/Unity-IOS-Could-not-produce-class-with-ID/&name=Unity发布IOS错误Could not produce class with ID&description=&lt;p&gt;&lt;img src=&#34;/assets/BlogImg/IOS.jpeg&#34; alt&gt;&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;有时候Unity发布在IOS上会出现：&lt;code&gt;Could not produce class with ID XXX.This could be caused by a class being stripped from the build even though it is needed. Try disabling &amp;#39;Strip Engine Code&amp;#39; inPlayer Settings.:&amp;lt;LoadWWWIEnumerator&amp;gt;c__Iterator99:MoveNext()&lt;/code&gt;的错误。&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;原因及解决办法&#34;&gt;&lt;a href=&#34;#原因及解决办法&#34; class=&#34;headerlink&#34; title=&#34;原因及解决办法&#34;&gt;&lt;/a&gt;原因及解决办法&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;原因是勾选了&lt;code&gt;Strip Engine Code&lt;/code&gt;，所以我们要做的就是在&lt;code&gt;Player Setting – Other Setting&lt;/code&gt;，去掉勾选 &lt;code&gt;Strip Engine&lt;/code&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;如果要Strip-Engine&#34;&gt;&lt;a href=&#34;#如果要Strip-Engine&#34; class=&#34;headerlink&#34; title=&#34;如果要Strip Engine&#34;&gt;&lt;/a&gt;如果要Strip Engine&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;如果要Strip Engine，那就需要把不想被strip的添加进来。&lt;/strong&gt;&lt;br&gt;&lt;br&gt;1、新建link.xml放在Assets目录下，里面添加不想被strip的dll的名字&lt;br&gt;&lt;br&gt;ID查询： &lt;a href=&#34;https://docs.unity3d.com/Manual/ClassIDReference.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;https://docs.unity3d.com/Manual/ClassIDReference.html&lt;/a&gt; &lt;br&gt;&lt;br&gt;下面是导入高通Vuforia之后，SDK中默认的link.xml的内容&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2019 Sor
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/categories/U3D/">Unity</a></li>
+         
+          <li><a href="/categories/Web/">Web</a></li>
+         
+          <li><a href="/categories/Vps/">Vps</a></li>
+         
+          <li><a href="/categories/Other/">Other</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+    <!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<!-- clipboard -->
+
+  <script src="/lib/clipboard/clipboard.min.js"></script>
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight .code pre").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      target: function(trigger) {
+        return trigger.nextElementSibling;
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-145902463-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Baidu Analytics -->
+
+    <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?f516690a137d934d0449e8b1b1c2687b";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

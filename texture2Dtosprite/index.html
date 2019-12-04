@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="ImageHelper.cs12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849using UnityEngine;/// &amp;lt;summary&amp;gt;/// /// &amp;lt;/summary&amp;gt;public class ImageHelper&amp;#123;    //">
+<meta name="keywords" content="Unity">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UnityUtil:Byte数组转Texture2D,Texture2D转Sprite工具">
+<meta property="og:url" content="http://coding.red/texture2Dtosprite/index.html">
+<meta property="og:site_name" content="Red Coding">
+<meta property="og:description" content="ImageHelper.cs12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849using UnityEngine;/// &amp;lt;summary&amp;gt;/// /// &amp;lt;/summary&amp;gt;public class ImageHelper&amp;#123;    //">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-12-04T02:34:25.530Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="UnityUtil:Byte数组转Texture2D,Texture2D转Sprite工具">
+<meta name="twitter:description" content="ImageHelper.cs12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849using UnityEngine;/// &amp;lt;summary&amp;gt;/// /// &amp;lt;/summary&amp;gt;public class ImageHelper&amp;#123;    //">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>UnityUtil:Byte数组转Texture2D,Texture2D转Sprite工具</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/categories/U3D/">Unity</a></li>
+         
+          <li><a href="/categories/Web/">Web</a></li>
+         
+          <li><a href="/categories/Vps/">Vps</a></li>
+         
+          <li><a href="/categories/Other/">Other</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/playerprefsmanager/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/unity_puremvc/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://coding.red/texture2Dtosprite/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://coding.red/texture2Dtosprite/&text=UnityUtil:Byte数组转Texture2D,Texture2D转Sprite工具"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://coding.red/texture2Dtosprite/&title=UnityUtil:Byte数组转Texture2D,Texture2D转Sprite工具"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://coding.red/texture2Dtosprite/&is_video=false&description=UnityUtil:Byte数组转Texture2D,Texture2D转Sprite工具"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=UnityUtil:Byte数组转Texture2D,Texture2D转Sprite工具&body=Check out this article: http://coding.red/texture2Dtosprite/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://coding.red/texture2Dtosprite/&title=UnityUtil:Byte数组转Texture2D,Texture2D转Sprite工具"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://coding.red/texture2Dtosprite/&title=UnityUtil:Byte数组转Texture2D,Texture2D转Sprite工具"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://coding.red/texture2Dtosprite/&title=UnityUtil:Byte数组转Texture2D,Texture2D转Sprite工具"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://coding.red/texture2Dtosprite/&title=UnityUtil:Byte数组转Texture2D,Texture2D转Sprite工具"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://coding.red/texture2Dtosprite/&name=UnityUtil:Byte数组转Texture2D,Texture2D转Sprite工具&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#ImageHelper-cs"><span class="toc-number">1.</span> <span class="toc-text">ImageHelper.cs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TextureScale-cs-辅助类"><span class="toc-number">2.</span> <span class="toc-text">TextureScale.cs 辅助类</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        UnityUtil:Byte数组转Texture2D,Texture2D转Sprite工具
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Red Coding</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2019-08-19T05:46:55.000Z" itemprop="datePublished">2019-08-19</time>
+        
+        (Updated: <time datetime="2019-12-04T02:34:25.530Z" itemprop="dateModified">2019-12-04</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/U3D/">U3D</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/Unity/">Unity</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h3 id="ImageHelper-cs"><a href="#ImageHelper-cs" class="headerlink" title="ImageHelper.cs"></a>ImageHelper.cs</h3><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> </span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ImageHelper</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> 根据byte[]取得sprite</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name="data"&gt;</span><span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name="width"&gt;</span><span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name="height"&gt;</span><span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span><span class="doctag">&lt;/returns&gt;</span></span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Sprite <span class="title">GetSprite</span>(<span class="params"><span class="keyword">byte</span>[] data, <span class="keyword">int</span> width = <span class="number">100</span>, <span class="keyword">int</span> height = <span class="number">100</span></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">if</span>(data == <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            Debug.LogWarning(<span class="string">"ImageHelper -&gt; GetSprite：byte[]为空！"</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Texture2D texture2D = <span class="keyword">new</span> Texture2D(width, height,TextureFormat.ARGB32, <span class="literal">false</span>);</span><br><span class="line">        texture2D.LoadImage(data);</span><br><span class="line">        <span class="keyword">return</span> GetSprite(texture2D, width, height);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> 根据Texture取得Sprite</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name="texture2D"&gt;</span><span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span><span class="doctag">&lt;/returns&gt;</span></span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Sprite <span class="title">GetSprite</span>(<span class="params">Texture2D texture2D, <span class="keyword">int</span> width = <span class="number">0</span>, <span class="keyword">int</span> height = <span class="number">0</span></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">if</span> (texture2D == <span class="literal">null</span>) &#123;</span><br><span class="line">            Debug.LogError(<span class="string">"texture2d is null"</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//如果设置了图片尺寸，重设尺寸</span></span><br><span class="line">        <span class="keyword">if</span>(width != <span class="number">0</span> &amp;&amp; height != <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            TextureScale.Bilinear(texture2D, width, height);</span><br><span class="line">            Debug.Log(texture2D.width + <span class="string">" "</span>+ texture2D.height);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        Sprite sprite = Sprite.Create(texture2D, <span class="keyword">new</span> Rect(<span class="number">0</span>, <span class="number">0</span>, texture2D.width, texture2D.height), <span class="keyword">new</span> Vector2(<span class="number">0.5f</span>, <span class="number">0.5f</span>));</span><br><span class="line">        <span class="keyword">return</span> sprite;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="TextureScale-cs-辅助类"><a href="#TextureScale-cs-辅助类" class="headerlink" title="TextureScale.cs 辅助类"></a>TextureScale.cs 辅助类</h3><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Only works on ARGB32, RGB24 and Alpha8 textures that are marked readable</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> System.Threading;</span><br><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">TextureScale</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ThreadData</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">int</span> start;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">int</span> end;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">ThreadData</span>(<span class="params"><span class="keyword">int</span> s, <span class="keyword">int</span> e</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            start = s;</span><br><span class="line">            end = e;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Color[] texColors;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Color[] newColors;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> w;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">float</span> ratioX;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">float</span> ratioY;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> w2;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> finishCount;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Mutex mutex;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Point</span>(<span class="params">Texture2D tex, <span class="keyword">int</span> newWidth, <span class="keyword">int</span> newHeight</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        ThreadedScale(tex, newWidth, newHeight, <span class="literal">false</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Bilinear</span>(<span class="params">Texture2D tex, <span class="keyword">int</span> newWidth, <span class="keyword">int</span> newHeight</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        ThreadedScale(tex, newWidth, newHeight, <span class="literal">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">ThreadedScale</span>(<span class="params">Texture2D tex, <span class="keyword">int</span> newWidth, <span class="keyword">int</span> newHeight, <span class="keyword">bool</span> useBilinear</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        texColors = tex.GetPixels();</span><br><span class="line">        newColors = <span class="keyword">new</span> Color[newWidth * newHeight];</span><br><span class="line">        <span class="keyword">if</span> (useBilinear)</span><br><span class="line">        &#123;</span><br><span class="line">            ratioX = <span class="number">1.0f</span> / ((<span class="keyword">float</span>)newWidth / (tex.width - <span class="number">1</span>));</span><br><span class="line">            ratioY = <span class="number">1.0f</span> / ((<span class="keyword">float</span>)newHeight / (tex.height - <span class="number">1</span>));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            ratioX = ((<span class="keyword">float</span>)tex.width) / newWidth;</span><br><span class="line">            ratioY = ((<span class="keyword">float</span>)tex.height) / newHeight;</span><br><span class="line">        &#125;</span><br><span class="line">        w = tex.width;</span><br><span class="line">        w2 = newWidth;</span><br><span class="line">        <span class="keyword">var</span> cores = Mathf.Min(SystemInfo.processorCount, newHeight);</span><br><span class="line">        <span class="keyword">var</span> slice = newHeight / cores;</span><br><span class="line"></span><br><span class="line">        finishCount = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (mutex == <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            mutex = <span class="keyword">new</span> Mutex(<span class="literal">false</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (cores &gt; <span class="number">1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">            ThreadData threadData;</span><br><span class="line">            <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; cores - <span class="number">1</span>; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                threadData = <span class="keyword">new</span> ThreadData(slice * i, slice * (i + <span class="number">1</span>));</span><br><span class="line">                ParameterizedThreadStart ts = useBilinear ? <span class="keyword">new</span> ParameterizedThreadStart(BilinearScale) : <span class="keyword">new</span> ParameterizedThreadStart(PointScale);</span><br><span class="line">                Thread thread = <span class="keyword">new</span> Thread(ts);</span><br><span class="line">                thread.Start(threadData);</span><br><span class="line">            &#125;</span><br><span class="line">            threadData = <span class="keyword">new</span> ThreadData(slice * i, newHeight);</span><br><span class="line">            <span class="keyword">if</span> (useBilinear)</span><br><span class="line">            &#123;</span><br><span class="line">                BilinearScale(threadData);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                PointScale(threadData);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">while</span> (finishCount &lt; cores)</span><br><span class="line">            &#123;</span><br><span class="line">                Thread.Sleep(<span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            ThreadData threadData = <span class="keyword">new</span> ThreadData(<span class="number">0</span>, newHeight);</span><br><span class="line">            <span class="keyword">if</span> (useBilinear)</span><br><span class="line">            &#123;</span><br><span class="line">                BilinearScale(threadData);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                PointScale(threadData);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        tex.Resize(newWidth, newHeight);</span><br><span class="line">        tex.SetPixels(newColors);</span><br><span class="line">        tex.Apply();</span><br><span class="line"></span><br><span class="line">        texColors = <span class="literal">null</span>;</span><br><span class="line">        newColors = <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">BilinearScale</span>(<span class="params">System.Object obj</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        ThreadData threadData = (ThreadData)obj;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> y = threadData.start; y &lt; threadData.end; y++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> yFloor = (<span class="keyword">int</span>)Mathf.Floor(y * ratioY);</span><br><span class="line">            <span class="keyword">var</span> y1 = yFloor * w;</span><br><span class="line">            <span class="keyword">var</span> y2 = (yFloor + <span class="number">1</span>) * w;</span><br><span class="line">            <span class="keyword">var</span> yw = y * w2;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">var</span> x = <span class="number">0</span>; x &lt; w2; x++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">int</span> xFloor = (<span class="keyword">int</span>)Mathf.Floor(x * ratioX);</span><br><span class="line">                <span class="keyword">var</span> xLerp = x * ratioX - xFloor;</span><br><span class="line">                newColors[yw + x] = ColorLerpUnclamped(ColorLerpUnclamped(texColors[y1 + xFloor], texColors[y1 + xFloor + <span class="number">1</span>], xLerp),</span><br><span class="line">                                                       ColorLerpUnclamped(texColors[y2 + xFloor], texColors[y2 + xFloor + <span class="number">1</span>], xLerp),</span><br><span class="line">                                                       y * ratioY - yFloor);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        mutex.WaitOne();</span><br><span class="line">        finishCount++;</span><br><span class="line">        mutex.ReleaseMutex();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">PointScale</span>(<span class="params">System.Object obj</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        ThreadData threadData = (ThreadData)obj;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> y = threadData.start; y &lt; threadData.end; y++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">var</span> thisY = (<span class="keyword">int</span>)(ratioY * y) * w;</span><br><span class="line">            <span class="keyword">var</span> yw = y * w2;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">var</span> x = <span class="number">0</span>; x &lt; w2; x++)</span><br><span class="line">            &#123;</span><br><span class="line">                newColors[yw + x] = texColors[(<span class="keyword">int</span>)(thisY + ratioX * x)];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        mutex.WaitOne();</span><br><span class="line">        finishCount++;</span><br><span class="line">        mutex.ReleaseMutex();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Color <span class="title">ColorLerpUnclamped</span>(<span class="params">Color c1, Color c2, <span class="keyword">float</span> <span class="keyword">value</span></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Color(c1.r + (c2.r - c1.r) * <span class="keyword">value</span>,</span><br><span class="line">                          c1.g + (c2.g - c1.g) * <span class="keyword">value</span>,</span><br><span class="line">                          c1.b + (c2.b - c1.b) * <span class="keyword">value</span>,</span><br><span class="line">                          c1.a + (c2.a - c1.a) * <span class="keyword">value</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/categories/U3D/">Unity</a></li>
+         
+          <li><a href="/categories/Web/">Web</a></li>
+         
+          <li><a href="/categories/Vps/">Vps</a></li>
+         
+          <li><a href="/categories/Other/">Other</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#ImageHelper-cs"><span class="toc-number">1.</span> <span class="toc-text">ImageHelper.cs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TextureScale-cs-辅助类"><span class="toc-number">2.</span> <span class="toc-text">TextureScale.cs 辅助类</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://coding.red/texture2Dtosprite/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://coding.red/texture2Dtosprite/&text=UnityUtil:Byte数组转Texture2D,Texture2D转Sprite工具"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://coding.red/texture2Dtosprite/&title=UnityUtil:Byte数组转Texture2D,Texture2D转Sprite工具"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://coding.red/texture2Dtosprite/&is_video=false&description=UnityUtil:Byte数组转Texture2D,Texture2D转Sprite工具"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=UnityUtil:Byte数组转Texture2D,Texture2D转Sprite工具&body=Check out this article: http://coding.red/texture2Dtosprite/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://coding.red/texture2Dtosprite/&title=UnityUtil:Byte数组转Texture2D,Texture2D转Sprite工具"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://coding.red/texture2Dtosprite/&title=UnityUtil:Byte数组转Texture2D,Texture2D转Sprite工具"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://coding.red/texture2Dtosprite/&title=UnityUtil:Byte数组转Texture2D,Texture2D转Sprite工具"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://coding.red/texture2Dtosprite/&title=UnityUtil:Byte数组转Texture2D,Texture2D转Sprite工具"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://coding.red/texture2Dtosprite/&name=UnityUtil:Byte数组转Texture2D,Texture2D转Sprite工具&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2019 Sor
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/categories/U3D/">Unity</a></li>
+         
+          <li><a href="/categories/Web/">Web</a></li>
+         
+          <li><a href="/categories/Vps/">Vps</a></li>
+         
+          <li><a href="/categories/Other/">Other</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+    <!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<!-- clipboard -->
+
+  <script src="/lib/clipboard/clipboard.min.js"></script>
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight .code pre").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      target: function(trigger) {
+        return trigger.nextElementSibling;
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-145902463-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Baidu Analytics -->
+
+    <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?f516690a137d934d0449e8b1b1c2687b";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

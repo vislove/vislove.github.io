@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="要点 事件队列模式，对消息或事件的发送与处理进行时间上的解耦。 事件队列：在先入先出的队列中存储一系列通知或请求。发送通知时，将请求放入队列并返回。处理请求的系统在稍晚些的时候从队列中获取请求并进行处理。这样就解耦了发送者和接收者，既静态又及时。 事件队列其实就是我们常说的“消息队列”，它其实也是观察者模式的异步版本使用场合 如果你只是想解耦接收者和发送者，像观察者模式和命令模式都可以用较小的复杂">
+<meta name="keywords" content="每周一点设计模式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="每周一点设计模式：事件队列模式">
+<meta property="og:url" content="http://coding.red/event_queue_pattern/index.html">
+<meta property="og:site_name" content="Red Coding">
+<meta property="og:description" content="要点 事件队列模式，对消息或事件的发送与处理进行时间上的解耦。 事件队列：在先入先出的队列中存储一系列通知或请求。发送通知时，将请求放入队列并返回。处理请求的系统在稍晚些的时候从队列中获取请求并进行处理。这样就解耦了发送者和接收者，既静态又及时。 事件队列其实就是我们常说的“消息队列”，它其实也是观察者模式的异步版本使用场合 如果你只是想解耦接收者和发送者，像观察者模式和命令模式都可以用较小的复杂">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-12-04T02:34:25.533Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="每周一点设计模式：事件队列模式">
+<meta name="twitter:description" content="要点 事件队列模式，对消息或事件的发送与处理进行时间上的解耦。 事件队列：在先入先出的队列中存储一系列通知或请求。发送通知时，将请求放入队列并返回。处理请求的系统在稍晚些的时候从队列中获取请求并进行处理。这样就解耦了发送者和接收者，既静态又及时。 事件队列其实就是我们常说的“消息队列”，它其实也是观察者模式的异步版本使用场合 如果你只是想解耦接收者和发送者，像观察者模式和命令模式都可以用较小的复杂">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>每周一点设计模式：事件队列模式</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/categories/U3D/">Unity</a></li>
+         
+          <li><a href="/categories/Web/">Web</a></li>
+         
+          <li><a href="/categories/Vps/">Vps</a></li>
+         
+          <li><a href="/categories/Other/">Other</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/19092403/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/read001/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://coding.red/event_queue_pattern/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://coding.red/event_queue_pattern/&text=每周一点设计模式：事件队列模式"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://coding.red/event_queue_pattern/&title=每周一点设计模式：事件队列模式"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://coding.red/event_queue_pattern/&is_video=false&description=每周一点设计模式：事件队列模式"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=每周一点设计模式：事件队列模式&body=Check out this article: http://coding.red/event_queue_pattern/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://coding.red/event_queue_pattern/&title=每周一点设计模式：事件队列模式"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://coding.red/event_queue_pattern/&title=每周一点设计模式：事件队列模式"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://coding.red/event_queue_pattern/&title=每周一点设计模式：事件队列模式"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://coding.red/event_queue_pattern/&title=每周一点设计模式：事件队列模式"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://coding.red/event_queue_pattern/&name=每周一点设计模式：事件队列模式&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#要点"><span class="toc-number">1.</span> <span class="toc-text">要点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用场合"><span class="toc-number">2.</span> <span class="toc-text">使用场合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#应用示例"><span class="toc-number">3.</span> <span class="toc-text">应用示例</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        每周一点设计模式：事件队列模式
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Red Coding</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2019-09-15T14:51:57.000Z" itemprop="datePublished">2019-09-15</time>
+        
+        (Updated: <time datetime="2019-12-04T02:34:25.533Z" itemprop="dateModified">2019-12-04</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/U3D/">U3D</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/每周一点设计模式/">每周一点设计模式</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="要点"><a href="#要点" class="headerlink" title="要点"></a>要点</h2><ul>
+<li><strong>事件队列模式，对消息或事件的发送与处理进行时间上的解耦。</strong></li>
+<li><strong>事件队列：在先入先出的队列中存储一系列通知或请求。发送通知时，将请求放入队列并返回。处理请求的系统在稍晚些的时候从队列中获取请求并进行处理。这样就解耦了发送者和接收者，既静态又及时。</strong></li>
+<li><strong>事件队列其实就是我们常说的“消息队列”，它其实也是观察者模式的异步版本</strong><h2 id="使用场合"><a href="#使用场合" class="headerlink" title="使用场合"></a>使用场合</h2></li>
+<li>如果你只是想解耦接收者和发送者，像观察者模式和命令模式都可以用较小的复杂度来进行处理。在需要解耦某些实时的内容时才建议使用事件队列。</li>
+<li>在有限状态机与状态模式中，往往需要一个输入流。如果想要异步响应，可以考虑用队列模式来存储它们。</li>
+</ul>
+<h2 id="应用示例"><a href="#应用示例" class="headerlink" title="应用示例"></a>应用示例</h2><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"><span class="keyword">using</span> System.Collections;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">EventQueuePatternExample</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">EventQueuePatternExample</span>: <span class="title">MonoBehaviour</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// Use this for initialization</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">Start</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="comment">//添加对"START"信息标识的监听，收到信息后触发OnReceiveMessageHandler处理。</span></span><br><span class="line">            MessageDispatcher.AddListener(<span class="string">"START"</span>, OnReceiveMessageHandler);</span><br><span class="line">            <span class="comment">//添加对"START"与指定了"Filter"过滤标识信息的监听，收到拥有"START"信息标识和"Filter"过滤标识信息的发送后触发OnReceiveMessageHandler处理。</span></span><br><span class="line">            MessageDispatcher.AddListener(<span class="string">"START"</span>, OnReceiveMessageHandler, <span class="string">"Filter"</span>);</span><br><span class="line">            <span class="comment">//添加对"Custom"信息标识的监听，收到信息后触发OnReceiveMessageHandler处理。</span></span><br><span class="line">            MessageDispatcher.AddListener(<span class="string">"Custom"</span>, OnReceiveCustomMessageHandler);</span><br><span class="line"></span><br><span class="line">            Debug.Log(<span class="string">"初始化成功，请按键盘上1，2，3数字键进行消息发送。"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Update is called once per frame</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">Update</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (Input.GetKeyDown(KeyCode.Alpha1))</span><br><span class="line">            &#123;</span><br><span class="line">                Message sMessage = <span class="keyword">new</span> Message();</span><br><span class="line">                sMessage.Type = <span class="string">"START"</span>;</span><br><span class="line">                sMessage.Filter = <span class="string">"Filter"</span>;</span><br><span class="line">                sMessage.Data = <span class="string">"你好,我是有过滤标识的信息"</span>;</span><br><span class="line">                <span class="comment">//MessageDispatcher发送一条信息出去，信息的标识为"START"，过滤标识为"Filter"。</span></span><br><span class="line">                MessageDispatcher.SendMessage(sMessage);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (Input.GetKeyDown(KeyCode.Alpha2))</span><br><span class="line">            &#123;</span><br><span class="line">                Message sMessage = <span class="keyword">new</span> Message();</span><br><span class="line">                sMessage.Type = <span class="string">"START"</span>;</span><br><span class="line">                sMessage.Data = <span class="string">"你好~~~我是一条延迟发送的消息"</span>;</span><br><span class="line">                <span class="comment">//延迟1秒后才发送</span></span><br><span class="line">                sMessage.Delay = <span class="number">1f</span>;</span><br><span class="line">                <span class="comment">//MessageDispatcher发送一条信息出去，信息的标识为"START"。</span></span><br><span class="line">                MessageDispatcher.SendMessage(sMessage);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (Input.GetKeyDown(KeyCode.Alpha3))</span><br><span class="line">            &#123;</span><br><span class="line">                MyCustomMessage mcm = <span class="keyword">new</span> MyCustomMessage();</span><br><span class="line">                mcm.MyCustomString = <span class="string">"我是自定义消息的额外数据"</span>;</span><br><span class="line">                mcm.Type = <span class="string">"Custom"</span>;</span><br><span class="line">                MessageDispatcher.SendMessage(mcm);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> 消息接收者</span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name="sMessage"&gt;</span><span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">OnReceiveMessageHandler</span>(<span class="params">IMessage sMessage</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            Debug.Log(sMessage.Data.ToString());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">OnReceiveCustomMessageHandler</span>(<span class="params">IMessage sMessage</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            Debug.Log((sMessage <span class="keyword">as</span> MyCustomMessage).MyCustomString);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> 自定义的消息</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">MyCustomMessage</span> : <span class="title">Message</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">string</span> MyCustomString;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> Message类相关信息的接口，就好像一条短信一样或者一个通知一样。</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> Message由MessageDispatcher类发送到监听对应信息者的对象中去。</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> 对象可以通过MessageDispatcher类传递一个命令或者一些数据给另一个或多个监听对应信息的类。</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> 可通过继承此接口自定义自己传递的数据信息</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">interface</span> <span class="title">IMessage</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> 信息的标识，可以是任何值</span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">        <span class="keyword">string</span> Type &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> 监听者的信息过滤标识</span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">        <span class="keyword">string</span> Filter &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> 信息发送的延迟时间，单位为秒</span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">        <span class="keyword">float</span> Delay &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> 信息的核心数据</span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">        <span class="keyword">object</span> Data &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> 定义信息是否已发送</span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">        <span class="keyword">bool</span> IsSent &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> 重置这个信息实例</span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">Reset</span>(<span class="params"></span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> 消息的基类</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Message</span> : <span class="title">IMessage</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">protected</span> <span class="keyword">object</span> mData = <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">object</span> Data</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">get</span> &#123; <span class="keyword">return</span> mData; &#125;</span><br><span class="line">            <span class="keyword">set</span> &#123; mData = <span class="keyword">value</span>; &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">protected</span> <span class="keyword">float</span> mDelay = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">float</span> Delay</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">get</span> &#123; <span class="keyword">return</span> mDelay; &#125;</span><br><span class="line">            <span class="keyword">set</span> &#123; mDelay = <span class="keyword">value</span>; &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">protected</span> <span class="keyword">bool</span> mIsSent = <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">bool</span> IsSent</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">get</span> &#123; <span class="keyword">return</span> mIsSent; &#125;</span><br><span class="line">            <span class="keyword">set</span> &#123; mIsSent = <span class="keyword">value</span>; &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">protected</span> <span class="keyword">string</span> mType = String.Empty;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">string</span> Type</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">get</span> &#123; <span class="keyword">return</span> mType; &#125;</span><br><span class="line">            <span class="keyword">set</span> &#123; mType = <span class="keyword">value</span>; &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">protected</span> <span class="keyword">string</span> mFilter = String.Empty;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">string</span> Filter</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">get</span> &#123; <span class="keyword">return</span> mFilter; &#125;</span><br><span class="line">            <span class="keyword">set</span> &#123; mFilter = <span class="keyword">value</span>; &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Reset</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            mType = String.Empty;</span><br><span class="line">            mData = <span class="literal">null</span>;</span><br><span class="line">            mIsSent = <span class="literal">false</span>;</span><br><span class="line">            mFilter = <span class="keyword">string</span>.Empty;</span><br><span class="line">            mDelay = <span class="number">0.0f</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> 用来给监听信息者收到信息后执行的处理。</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name="rMessage"&gt;</span><span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">delegate</span> <span class="keyword">void</span> <span class="title">MessageHandler</span>(<span class="params">IMessage rMessage</span>)</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> 消息分发管理管理类</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">MessageDispatcher</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> 当某些信息没有监听的时候，信息发送的处理由该委托处理。</span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">static</span> MessageHandler MessageNotHandled = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> 存储标识着延迟发送的信息</span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> List&lt;IMessage&gt; mMessages = <span class="keyword">new</span> List&lt;IMessage&gt;();</span><br><span class="line"></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> 主要存储信息对应的处理</span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> 第一个string是信息的标识，第二个string是监听过滤信息的标识，第三个是信息发送成功的处理</span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> Dictionary&lt;<span class="keyword">string</span>, Dictionary&lt;<span class="keyword">string</span>, MessageHandler&gt;&gt; mMessageHandlers = <span class="keyword">new</span> Dictionary&lt;<span class="keyword">string</span>, Dictionary&lt;<span class="keyword">string</span>, MessageHandler&gt;&gt;();</span><br><span class="line"></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> 清除所有延迟信息的列表</span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">ClearMessages</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            mMessages.Clear();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> 添加一个对信息的监听</span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name="rMessageType"&gt;</span>所监听信息的标识<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name="rFilter"&gt;</span>所监听信息过滤的标识<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name="rHandler"&gt;</span>所监听信息后的处理，即信息由派送者发出去后的处理<span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">AddListener</span>(<span class="params"><span class="keyword">string</span> rMessageType, MessageHandler rHandler, <span class="keyword">string</span> rFilter = <span class="string">""</span></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            Dictionary&lt;<span class="keyword">string</span>, MessageHandler&gt; lRecipientDictionary = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">            <span class="comment">//查找信息对应处理的列表里是否包含了这个信息，若包含取出他的对应的过滤和处理。</span></span><br><span class="line">            <span class="keyword">if</span> (mMessageHandlers.ContainsKey(rMessageType))</span><br><span class="line">            &#123;</span><br><span class="line">                lRecipientDictionary = mMessageHandlers[rMessageType];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//如果没有包含这个信息处理的标识则创建他</span></span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                lRecipientDictionary = <span class="keyword">new</span> Dictionary&lt;<span class="keyword">string</span>, MessageHandler&gt;();</span><br><span class="line">                mMessageHandlers.Add(rMessageType, lRecipientDictionary);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">//检查信息过滤集合是否包含了过滤信息的标识,""代表没有过滤标识</span></span><br><span class="line">            <span class="keyword">if</span> (!lRecipientDictionary.ContainsKey(rFilter))</span><br><span class="line">            &#123;</span><br><span class="line">                lRecipientDictionary.Add(rFilter, <span class="literal">null</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">//因为是引用，所以会自动更新到mMessageHandlers里。</span></span><br><span class="line">            lRecipientDictionary[rFilter] += rHandler;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> 发送信息出去</span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name="rMessage"&gt;</span><span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">SendMessage</span>(<span class="params">IMessage rMessage</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="comment">//是否丢失接收信息的监听者，默认为true</span></span><br><span class="line">            <span class="keyword">bool</span> lReportMissingRecipient = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">            <span class="comment">//如果信息有延迟时间则把该信息加入到延迟信息列表中等待触发。</span></span><br><span class="line">            <span class="keyword">if</span> (rMessage.Delay &gt; <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (!mMessages.Contains(rMessage))</span><br><span class="line">                &#123;</span><br><span class="line">                    mMessages.Add(rMessage);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="comment">//避免触发下面的丢失监听者代码块</span></span><br><span class="line">                lReportMissingRecipient = <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//没有延迟的话直接看看信息相应处理列表是否包含这条信息</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (mMessageHandlers.ContainsKey(rMessage.Type))</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">//得到相应信息的处理</span></span><br><span class="line">                Dictionary&lt;<span class="keyword">string</span>, MessageHandler&gt; lHandlers = mMessageHandlers[rMessage.Type];</span><br><span class="line"></span><br><span class="line">                <span class="comment">//遍历相信信息的过滤的标识</span></span><br><span class="line">                <span class="keyword">foreach</span> (<span class="keyword">string</span> lFilter <span class="keyword">in</span> lHandlers.Keys)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">if</span> (lHandlers[lFilter] == <span class="literal">null</span>)</span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="keyword">continue</span>;</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">if</span> (lFilter.Equals(rMessage.Filter))</span><br><span class="line">                    &#123;</span><br><span class="line">                        lHandlers[lFilter](rMessage);</span><br><span class="line">                        rMessage.IsSent = <span class="literal">true</span>;</span><br><span class="line">                        lReportMissingRecipient = <span class="literal">false</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (lReportMissingRecipient)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (MessageNotHandled == <span class="literal">null</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    Debug.LogWarning(<span class="keyword">string</span>.Format(<span class="string">"MessageDispatcher无法识别Message.Type：&#123;0&#125; 或者是信息过滤指定的Message.Filter"</span>, rMessage.Type, rMessage.Filter));</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span></span><br><span class="line">                &#123;</span><br><span class="line">                    MessageNotHandled(rMessage);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> 在每帧中负责处理延迟信息列表的发送</span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Update</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="comment">//处理延迟信息列表的信息发送</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; mMessages.Count; i++)</span><br><span class="line">            &#123;</span><br><span class="line">                IMessage lMessage = mMessages[i];</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 减少延迟时间</span></span><br><span class="line">                lMessage.Delay -= Time.deltaTime;</span><br><span class="line">                <span class="keyword">if</span> (lMessage.Delay &lt; <span class="number">0</span>) &#123; lMessage.Delay = <span class="number">0</span>; &#125;</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 如果到时间了就立即发送</span></span><br><span class="line">                <span class="keyword">if</span> (!lMessage.IsSent &amp;&amp; lMessage.Delay == <span class="number">0</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    SendMessage(lMessage);</span><br><span class="line">                    mMessages.RemoveAt(i);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/categories/U3D/">Unity</a></li>
+         
+          <li><a href="/categories/Web/">Web</a></li>
+         
+          <li><a href="/categories/Vps/">Vps</a></li>
+         
+          <li><a href="/categories/Other/">Other</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#要点"><span class="toc-number">1.</span> <span class="toc-text">要点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用场合"><span class="toc-number">2.</span> <span class="toc-text">使用场合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#应用示例"><span class="toc-number">3.</span> <span class="toc-text">应用示例</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://coding.red/event_queue_pattern/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://coding.red/event_queue_pattern/&text=每周一点设计模式：事件队列模式"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://coding.red/event_queue_pattern/&title=每周一点设计模式：事件队列模式"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://coding.red/event_queue_pattern/&is_video=false&description=每周一点设计模式：事件队列模式"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=每周一点设计模式：事件队列模式&body=Check out this article: http://coding.red/event_queue_pattern/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://coding.red/event_queue_pattern/&title=每周一点设计模式：事件队列模式"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://coding.red/event_queue_pattern/&title=每周一点设计模式：事件队列模式"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://coding.red/event_queue_pattern/&title=每周一点设计模式：事件队列模式"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://coding.red/event_queue_pattern/&title=每周一点设计模式：事件队列模式"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://coding.red/event_queue_pattern/&name=每周一点设计模式：事件队列模式&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2019 Sor
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/categories/U3D/">Unity</a></li>
+         
+          <li><a href="/categories/Web/">Web</a></li>
+         
+          <li><a href="/categories/Vps/">Vps</a></li>
+         
+          <li><a href="/categories/Other/">Other</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+    <!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<!-- clipboard -->
+
+  <script src="/lib/clipboard/clipboard.min.js"></script>
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight .code pre").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      target: function(trigger) {
+        return trigger.nextElementSibling;
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-145902463-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Baidu Analytics -->
+
+    <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?f516690a137d934d0449e8b1b1c2687b";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>
