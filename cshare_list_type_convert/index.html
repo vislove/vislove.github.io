@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="问题：C#中的List不能用普通的方式进行类型转换在对List用普通方式进行类型转换的时候会出现无法转换的问题，那么怎么解决呢？查了一下可以用官方的List&amp;lt;T&amp;gt;.ConvertAll&amp;lt;TOutput&amp;gt;(Converter&amp;lt;T,TOutput&amp;gt;) API来解决，其实List类型转换就是泛型的转换。 解决方案：List.ConvertAll API命名空间:Sys">
+<meta name="keywords" content="C#">
+<meta property="og:type" content="article">
+<meta property="og:title" content="解决C#链表类型不能转换的问题">
+<meta property="og:url" content="http://coding.red/cshare_list_type_convert/index.html">
+<meta property="og:site_name" content="Red Coding">
+<meta property="og:description" content="问题：C#中的List不能用普通的方式进行类型转换在对List用普通方式进行类型转换的时候会出现无法转换的问题，那么怎么解决呢？查了一下可以用官方的List&amp;lt;T&amp;gt;.ConvertAll&amp;lt;TOutput&amp;gt;(Converter&amp;lt;T,TOutput&amp;gt;) API来解决，其实List类型转换就是泛型的转换。 解决方案：List.ConvertAll API命名空间:Sys">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-12-10T03:33:20.850Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="解决C#链表类型不能转换的问题">
+<meta name="twitter:description" content="问题：C#中的List不能用普通的方式进行类型转换在对List用普通方式进行类型转换的时候会出现无法转换的问题，那么怎么解决呢？查了一下可以用官方的List&amp;lt;T&amp;gt;.ConvertAll&amp;lt;TOutput&amp;gt;(Converter&amp;lt;T,TOutput&amp;gt;) API来解决，其实List类型转换就是泛型的转换。 解决方案：List.ConvertAll API命名空间:Sys">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>解决C#链表类型不能转换的问题</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/categories/U3D/">Unity</a></li>
+         
+          <li><a href="/categories/Web/">Web</a></li>
+         
+          <li><a href="/categories/Vps/">Vps</a></li>
+         
+          <li><a href="/categories/Other/">Other</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/blog_vps/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://coding.red/cshare_list_type_convert/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://coding.red/cshare_list_type_convert/&text=解决C#链表类型不能转换的问题"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://coding.red/cshare_list_type_convert/&title=解决C#链表类型不能转换的问题"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://coding.red/cshare_list_type_convert/&is_video=false&description=解决C#链表类型不能转换的问题"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=解决C#链表类型不能转换的问题&body=Check out this article: http://coding.red/cshare_list_type_convert/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://coding.red/cshare_list_type_convert/&title=解决C#链表类型不能转换的问题"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://coding.red/cshare_list_type_convert/&title=解决C#链表类型不能转换的问题"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://coding.red/cshare_list_type_convert/&title=解决C#链表类型不能转换的问题"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://coding.red/cshare_list_type_convert/&title=解决C#链表类型不能转换的问题"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://coding.red/cshare_list_type_convert/&name=解决C#链表类型不能转换的问题&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#问题：C-中的List不能用普通的方式进行类型转换"><span class="toc-number">1.</span> <span class="toc-text">问题：C#中的List不能用普通的方式进行类型转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决方案：List-ConvertAll-API"><span class="toc-number">2.</span> <span class="toc-text">解决方案：List.ConvertAll API</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#示例"><span class="toc-number">3.</span> <span class="toc-text">示例</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        解决C#链表类型不能转换的问题
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Red Coding</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2019-12-10T03:15:16.000Z" itemprop="datePublished">2019-12-10</time>
+        
+        (Updated: <time datetime="2019-12-10T03:33:20.850Z" itemprop="dateModified">2019-12-10</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/U3D/">U3D</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/C/">C#</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="问题：C-中的List不能用普通的方式进行类型转换"><a href="#问题：C-中的List不能用普通的方式进行类型转换" class="headerlink" title="问题：C#中的List不能用普通的方式进行类型转换"></a>问题：C#中的List不能用普通的方式进行类型转换</h2><p><strong>在对List用普通方式进行类型转换的时候会出现无法转换的问题，那么怎么解决呢？查了一下可以用官方的<code>List&lt;T&gt;.ConvertAll&lt;TOutput&gt;(Converter&lt;T,TOutput&gt;)</code> API来解决，其实List类型转换就是泛型的转换。</strong></p>
+<h2 id="解决方案：List-ConvertAll-API"><a href="#解决方案：List-ConvertAll-API" class="headerlink" title="解决方案：List.ConvertAll API"></a>解决方案：List<t>.ConvertAll API</t></h2><p><strong>命名空间:<code>System.Collections.Generic</code></strong><br><strong>程序集:mscorlib.dll, netstandard.dll, System.Collections.dll</strong><br><strong>参数：TOutput：目标数组元素的类型。Converter&lt;T,TOutput&gt;一个 Converter&lt;TInput,TOutput&gt; 委托，可将每个元素从一种类型转换为另一种类型。</strong><br><strong>返回：目标类型的 List<t>，包含当前 List<t> 中转换后的元素。</t></t></strong></p>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p><strong>示例定义了一个名为 PointFToPoint 的方法，该方法将 PointF 结构转换为 Point 结构。 然后，该示例创建一个 List<t> 的 PointF 结构，在 Visual Basic 中创建一个 Converter&lt;PointF, Point&gt;``Converter(Of PointF, Point) 委托来表示 PointFToPoint 方法，并将该委托传递给 ConvertAll 方法。 ConvertAll 方法将输入列表的每个元素传递到 PointFToPoint 方法，并将转换后的元素放入 Point 结构的新列表中。 将显示这两个列表。</t></strong></p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.Drawing;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Example</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        List&lt;PointF&gt; lpf = <span class="keyword">new</span> List&lt;PointF&gt;();</span><br><span class="line"></span><br><span class="line">        lpf.Add(<span class="keyword">new</span> PointF(<span class="number">27.8F</span>, <span class="number">32.62F</span>));</span><br><span class="line">        lpf.Add(<span class="keyword">new</span> PointF(<span class="number">99.3F</span>, <span class="number">147.273F</span>));</span><br><span class="line">        lpf.Add(<span class="keyword">new</span> PointF(<span class="number">7.5F</span>, <span class="number">1412.2F</span>));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">foreach</span>( PointF p <span class="keyword">in</span> lpf )</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(p);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        List&lt;Point&gt; lp = lpf.ConvertAll( </span><br><span class="line">            <span class="keyword">new</span> Converter&lt;PointF, Point&gt;(PointFToPoint));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">foreach</span>( Point p <span class="keyword">in</span> lp )</span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(p);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Point <span class="title">PointFToPoint</span>(<span class="params">PointF pf</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Point(((<span class="keyword">int</span>) pf.X), ((<span class="keyword">int</span>) pf.Y));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* This code example produces the following output:</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">&#123;X=27.8, Y=32.62&#125;</span></span><br><span class="line"><span class="comment">&#123;X=99.3, Y=147.273&#125;</span></span><br><span class="line"><span class="comment">&#123;X=7.5, Y=1412.2&#125;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">&#123;X=27,Y=32&#125;</span></span><br><span class="line"><span class="comment">&#123;X=99,Y=147&#125;</span></span><br><span class="line"><span class="comment">&#123;X=7,Y=1412&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
+
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/categories/U3D/">Unity</a></li>
+         
+          <li><a href="/categories/Web/">Web</a></li>
+         
+          <li><a href="/categories/Vps/">Vps</a></li>
+         
+          <li><a href="/categories/Other/">Other</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#问题：C-中的List不能用普通的方式进行类型转换"><span class="toc-number">1.</span> <span class="toc-text">问题：C#中的List不能用普通的方式进行类型转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决方案：List-ConvertAll-API"><span class="toc-number">2.</span> <span class="toc-text">解决方案：List.ConvertAll API</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#示例"><span class="toc-number">3.</span> <span class="toc-text">示例</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://coding.red/cshare_list_type_convert/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://coding.red/cshare_list_type_convert/&text=解决C#链表类型不能转换的问题"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://coding.red/cshare_list_type_convert/&title=解决C#链表类型不能转换的问题"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://coding.red/cshare_list_type_convert/&is_video=false&description=解决C#链表类型不能转换的问题"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=解决C#链表类型不能转换的问题&body=Check out this article: http://coding.red/cshare_list_type_convert/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://coding.red/cshare_list_type_convert/&title=解决C#链表类型不能转换的问题"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://coding.red/cshare_list_type_convert/&title=解决C#链表类型不能转换的问题"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://coding.red/cshare_list_type_convert/&title=解决C#链表类型不能转换的问题"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://coding.red/cshare_list_type_convert/&title=解决C#链表类型不能转换的问题"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://coding.red/cshare_list_type_convert/&name=解决C#链表类型不能转换的问题&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2019 Sor
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/categories/U3D/">Unity</a></li>
+         
+          <li><a href="/categories/Web/">Web</a></li>
+         
+          <li><a href="/categories/Vps/">Vps</a></li>
+         
+          <li><a href="/categories/Other/">Other</a></li>
+         
+          <li><a href="/about/">About</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+    <!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<!-- clipboard -->
+
+  <script src="/lib/clipboard/clipboard.min.js"></script>
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight .code pre").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      target: function(trigger) {
+        return trigger.nextElementSibling;
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-145902463-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Baidu Analytics -->
+
+    <script type="text/javascript">
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?f516690a137d934d0449e8b1b1c2687b";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>
